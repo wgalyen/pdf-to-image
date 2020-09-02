@@ -22,7 +22,7 @@ function threeDigits(execution, i) {
 let fileArea = document.getElementById('drag-drop-area');
 let fileInput = document.getElementById('file-input');
 const executeButton = document.getElementById('execute');
-let droppedFiles = [];  // Variable to store image file
+let droppedFiles = []; 
 let convertedFiles = [];
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -74,10 +74,11 @@ function convertPdfToImage() {
 
         fileReader.onload = async function (fileLoadedEvent) {
             let base64 = fileLoadedEvent.target.result;
-            PDFbase64 = atob(base64.replace('data:application/pdf;base64', ''));
+            PDFbase64 = atob(base64.replace('data:application/pdf;base64,', ''));
 
             // Use async/await, Promise to process asynchronously in order
             let PDFlength = await getPDFpageLength(PDFbase64);
+            await drawPDFinCanvas(PDFlength, PDFbase64);
             compressToZip(PDFlength);
         }
 
@@ -94,7 +95,7 @@ function removeCanvasElement() {
     }
 }
 
-function getPDFpageLength(PDFData) {
+function getPDFpageLength(PDFdata) {
     // Match the return value of asynchronous processing
     return new Promise(function (resolve, reject) {
         // Load display
@@ -121,7 +122,7 @@ function drawPDFinCanvas(PDFlength, PDFdata) {
         displayLoadingAnimation('fastparrot', 'drawing...');
 
         let count = 0;
-        for (let pageNUm = 1; pageNum <= PDFlength; pageNum++) {
+        for (let pageNum = 1; pageNum <= PDFlength; pageNum++) {
             let loadingTask = pdfjsLib.getDocument({ data: PDFdata, });
             loadingTask.promise.then(function (pdf) {
                 pdf.getPage(pageNum).then(function (page) {

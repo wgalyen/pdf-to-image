@@ -27,7 +27,7 @@ const config = {
     closeModal: function () {
         document.getElementById('close-modal-btn').click();
     },
-    applyConfigModal: function () {
+    applyConfigOfModal: function () {
         this.type = configElement.type.value;
         this.quality = parseFloat(configElement.quality.value);
         this.scale = parseFloat(configElement.scale.value);
