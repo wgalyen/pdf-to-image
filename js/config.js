@@ -19,7 +19,6 @@ const config = {
 
         for (let name of nameList) {
             let element = configElement[name.property];
-            console.log(element.value, this[name.property])
             if (element.value !== this[name.property]) {
                 element.value = this[name.property];
             }
