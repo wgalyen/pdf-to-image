@@ -1,0 +1,18 @@
+#comments {
+    position: fixed;
+    top: 0px;
+    left: 65px;
+}
+
+#loading {
+    width: 60px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    #loading {
+        width: 45px;
+    }
+} 

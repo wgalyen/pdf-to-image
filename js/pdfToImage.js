@@ -97,11 +97,16 @@ function removeCanvasElement() {
 function getPDFpageLength(PDFData) {
     // Match the return value of asynchronous processing
     return new Promise(function (resolve, reject) {
+        // Load display
+        displayLoadingAnimation('parrot', 'get length...');
 
         let loadingTask = pdfjsLib.getDocument({ data: PDFdata });
         loadingTask.promise.then(function (pdf) {
             // console.log(pdf.numPages);
             loadingTask.destroy();
+
+            // Load remove
+            deleteLoadingAnimation();
             resolve(pdf.numPages);
         });
     })
@@ -110,6 +115,9 @@ function getPDFpageLength(PDFData) {
 function drawPDFinCanvas(PDFlength, PDFdata) {
     return new Promise(function (resolve, reject) {
         //pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.2.228/build/pdf.worker.min.js';
+
+        // Load display
+        displayLoadingAnimation('parrot', 'drawing...');
 
         let count = 0;
         for (let pageNUm = 1; pageNum <= PDFlength; pageNum++) {
@@ -137,6 +145,9 @@ function drawPDFinCanvas(PDFlength, PDFdata) {
                     page.render(renderContext).promise.then(function () {
                         if (count == PDFlength - 1) {
                             loadingTask.destroy();
+
+                            // Load remove
+                            deleteLoadingAnimation();
                             resolve();
                         } else {
                             loadingTask.destroy();
@@ -153,6 +164,9 @@ function compressToZip(PDFlength) {
     let zip = new JSZip();
     let count = 0;
     let extension, underscore;
+
+    // Load display
+    displayLoadingAnimation('parrot', 'saving...');
 
     if (config.type === 'image/jpeg') {
         extension = '.jpg';
@@ -175,8 +189,10 @@ function compressToZip(PDFlength) {
 
             if (count == PDFlength - 1) {
                 zip.generateAsync({ type: 'blob' }).then(function (content) {
-                    //see FileSaver.js
+                    // see FileSaver.js
                     saveAs(content, 'pdf.zip');
+                    // Load remove
+                    deleteLoadingAnimation();
                 });
             } else {
                 count++;

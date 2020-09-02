@@ -44,6 +44,7 @@ main {
 
 .drag-drop-buttons input {
     margin: auto;
+    max-width: 350px;
 }
 
 p.attention {
