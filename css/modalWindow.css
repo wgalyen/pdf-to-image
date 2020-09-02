@@ -1,0 +1,23 @@
+#modal-link-btn {
+    float: right;
+}
+
+.modal-footer>button {
+    margin-bottom: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .modal-content {
+        background-color: rgb(32, 36, 39);
+    }
+    .modal-header {
+        border-color: gray;
+    }
+    .modal-footer {
+        border-color: gray;
+    }
+    .close>span {
+        color: rgb(218, 215, 210);
+        text-shadow: none;
+    }
+}
